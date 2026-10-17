@@ -28,6 +28,19 @@ td{padding:12px;border-bottom:1px solid var(--line);text-align:right}th:first-ch
 .err{background:#3f1d1d;border:1px solid #7f1d1d;color:#fecaca;padding:12px 16px;border-radius:12px;margin-bottom:16px;font-size:14px;display:none}
 footer{margin-top:28px;font-size:12px;color:var(--mut);text-align:center}
 .skel{color:var(--mut)}
+html,body{overflow-x:hidden;max-width:100%}
+.addr a{word-break:break-all}
+@media(max-width:640px){
+.wrap{padding:16px 12px 32px}h1{font-size:18px}.logo{width:30px;height:30px}
+header{flex-direction:column;align-items:flex-start;gap:10px}.chip{font-size:11px}
+.big{font-size:32px}.card{padding:16px}
+table,thead,tbody,tr,td{display:block;width:100%}thead{display:none}
+tr{border-bottom:1px solid var(--line);padding:10px 6px}tr:last-child{border-bottom:0}
+td,.trades td{display:flex;justify-content:space-between;gap:12px;padding:5px 4px;border:0;text-align:right;font-size:14px}
+td::before{content:attr(data-l);color:var(--mut);font-size:13px;text-align:left;flex-shrink:0}
+td>*{min-width:0;overflow-wrap:anywhere}td:first-child{font-size:15px}td:first-child::before{content:none}
+.trades td{text-align:right}.trades td:first-child{text-align:left}
+}
 </style>
 </head>
 <body><div class="wrap">
@@ -111,7 +124,7 @@ async function load(){
     const p=s.prices;
     $('px').innerHTML=p?`<div style="display:flex;justify-content:space-between;font-size:15px;margin:4px 0 10px"><span>ETH</span><span><b>${usd(p.ETH)}</b> <span class="${cls(p.ETH24)}" style="font-size:12px">${pct(p.ETH24)}</span></span></div><div style="display:flex;justify-content:space-between;font-size:15px"><span>BTC</span><span><b>${usd(p.BTC,0)}</b> <span class="${cls(p.BTC24)}" style="font-size:12px">${pct(p.BTC24)}</span></span></div><div class="sub" style="font-size:12px">24시간 변동률</div>`:'가격 정보 없음';
     if(s.assets){
-      $('assets').innerHTML=s.assets.map(a=>`<tr><td><b>${esc(a.label)}</b><span class="tag t-${a.group}">${GRP[a.group]}</span></td><td class="mono">${amt(a.amount,a.key)}</td><td>${usd(a.price,a.key==='USDC'?4:2)}</td><td>${a.cost!=null?usd(a.cost):'<span class="muted">–</span>'}</td><td><b>${usd(a.value)}</b></td><td class="${cls(a.ret)}">${a.ret!=null?pct(a.ret):'<span class="muted">–</span>'}</td></tr>`).join('');
+      $('assets').innerHTML=s.assets.map(a=>`<tr><td><b>${esc(a.label)}</b><span class="tag t-${a.group}">${GRP[a.group]}</span></td><td data-l="보유량" class="mono">${amt(a.amount,a.key)}</td><td data-l="현재가">${usd(a.price,a.key==='USDC'?4:2)}</td><td data-l="매수 금액">${a.cost!=null?usd(a.cost):'<span class="muted">–</span>'}</td><td data-l="현재 가치"><b>${usd(a.value)}</b></td><td data-l="수익률" class="${cls(a.ret)}">${a.ret!=null?pct(a.ret):'<span class="muted">–</span>'}</td></tr>`).join('');
       if(s.total){const sum=g=>s.assets.filter(a=>a.group===g).reduce((x,a)=>x+(a.value||0),0);
         const c=sum('core'),ag=sum('aggressive'),g=sum('gas'),t=c+ag+g;
         $('bCore').style.width=c/t*100+'%';$('bAgg').style.width=ag/t*100+'%';$('bGas').style.width=g/t*100+'%';
@@ -119,7 +132,7 @@ async function load(){
         $('lGas').textContent='목표 50 : 50 · 수수료용 ETH '+usd(g)+' 별도';}
     } else $('assets').innerHTML='<tr><td colspan="6" class="muted">잔고를 불러오지 못했어요</td></tr>';
     const t=s.trades||[];
-    $('trades').innerHTML=t.length?t.map(x=>`<tr><td class="mono muted">${esc(x.time)}</td><td><b>${esc(x.pair)}</b></td><td>${esc(x.in)}${x.out&&x.out!=='–'?' → '+esc(x.out):''}</td><td class="muted">${esc(x.price)}</td><td class="muted">${esc(x.reason)}</td><td>${x.tx?`<a class="mono" href="${esc(x.tx)}" target="_blank" rel="noopener">${esc(x.txShort)} ↗</a>`:'–'}</td></tr>`).join(''):'<tr><td colspan="6" class="muted">아직 거래가 없어요</td></tr>';
+    $('trades').innerHTML=t.length?t.map(x=>`<tr><td class="mono muted">${esc(x.time)}</td><td data-l="거래"><b>${esc(x.pair)}</b></td><td data-l="내역"><span>${esc(x.in)}${x.out&&x.out!=='–'?' → '+esc(x.out):''}</span></td><td data-l="가격" class="muted">${esc(x.price)}</td><td data-l="이유" class="muted"><span>${esc(x.reason)}</span></td><td data-l="거래 링크">${x.tx?`<a class="mono" href="${esc(x.tx)}" target="_blank" rel="noopener">${esc(x.txShort)} ↗</a>`:'–'}</td></tr>`).join(''):'<tr><td colspan="6" class="muted">아직 거래가 없어요</td></tr>';
   }catch(e){$('err').style.display='block';$('err').textContent='⚠️ 데이터를 불러오지 못했어요: '+e.message;$('dot').style.background='var(--down)';}
 }
 load();setInterval(load,60000);
