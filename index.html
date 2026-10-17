@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grok Bot 지갑 대시보드</title>
+<style>
+:root{--bg:#0b1020;--card:#131a2e;--line:#232c47;--txt:#e7ebf5;--mut:#8b95b2;--up:#22c55e;--down:#ef4444;--acc:#3b82f6;--acc2:#a855f7}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;background:radial-gradient(1200px 600px at 10% -10%,#1b2550 0,transparent 60%),var(--bg);color:var(--txt)}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 24px 48px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+h1{font-size:22px;margin:0;display:flex;align-items:center;gap:10px}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;font-weight:800}
+.addr{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mut)}.addr a{color:#93c5fd;text-decoration:none}.addr a:hover{text-decoration:underline}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mut);background:var(--card);border:1px solid var(--line);padding:6px 10px;border-radius:999px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--up);box-shadow:0 0 8px var(--up)}
+.grid{display:grid;gap:16px}.g3{grid-template-columns:1.3fr 1fr 1fr}@media(max-width:900px){.g3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.lbl{font-size:13px;color:var(--mut);margin-bottom:8px}.big{font-size:38px;font-weight:800;letter-spacing:-.5px}
+.sub{font-size:14px;color:var(--mut);margin-top:6px}.up{color:var(--up)}.down{color:var(--down)}
+.bar{height:12px;border-radius:999px;background:#1e2742;overflow:hidden;display:flex;margin:14px 0 10px}
+.bar>div{height:100%}.legend{display:flex;justify-content:space-between;font-size:13px}.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+h2{font-size:16px;margin:26px 0 12px}
+table{width:100%;border-collapse:collapse;font-size:14px}th{color:var(--mut);font-weight:500;text-align:right;padding:10px 12px;border-bottom:1px solid var(--line)}
+td{padding:12px;border-bottom:1px solid var(--line);text-align:right}th:first-child,td:first-child{text-align:left}tr:last-child td{border-bottom:0}
+.tag{font-size:11px;padding:2px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}.t-core{background:#1e3a8a55;color:#93c5fd}.t-aggressive{background:#581c8755;color:#d8b4fe}.t-gas{background:#33415555;color:#cbd5e1}
+.trades td{text-align:left;vertical-align:top}.trades td.r{text-align:right}.mono{font-family:ui-monospace,Menlo,monospace;font-size:12.5px}
+.trades a{color:#93c5fd;text-decoration:none}.muted{color:var(--mut)}
+.err{background:#3f1d1d;border:1px solid #7f1d1d;color:#fecaca;padding:12px 16px;border-radius:12px;margin-bottom:16px;font-size:14px;display:none}
+footer{margin-top:28px;font-size:12px;color:var(--mut);text-align:center}
+.skel{color:var(--mut)}
+</style>
+</head>
+<body><div class="wrap">
+<header>
+  <div><h1><span class="logo">G</span>Grok Bot 지갑 대시보드</h1>
+  <div class="addr" style="margin-top:6px">Base 네트워크 · <a id="addr" target="_blank" rel="noopener"></a></div></div>
+  <div class="chip"><span class="dot" id="dot"></span><span id="upd">불러오는 중…</span></div>
+</header>
+<div class="err" id="err"></div>
+<div class="grid g3">
+  <div class="card"><div class="lbl">총자산</div><div class="big" id="total">–</div><div class="sub" id="pnl">입금액 $109.46 대비</div></div>
+  <div class="card"><div class="lbl">시세 (CoinGecko)</div><div id="px" class="skel">–</div></div>
+  <div class="card"><div class="lbl">자금 배분 (주요 코인 / 공격적 거래)</div>
+    <div class="bar"><div id="bCore" style="background:var(--acc);width:0"></div><div id="bAgg" style="background:var(--acc2);width:0"></div><div id="bGas" style="background:#64748b;width:0"></div></div>
+    <div class="legend"><span><span class="sw" style="background:var(--acc)"></span>주요 <b id="lCore">–</b></span><span><span class="sw" style="background:var(--acc2)"></span>공격용 <b id="lAgg">–</b></span></div>
+    <div class="sub" id="lGas"></div></div>
+</div>
+<h2>보유 자산</h2>
+<div class="card" style="padding:6px 8px"><table><thead><tr><th>자산</th><th>보유량</th><th>현재가</th><th>매수 금액</th><th>현재 가치</th><th>수익률</th></tr></thead><tbody id="assets"><tr><td colspan="6" class="skel">불러오는 중…</td></tr></tbody></table></div>
+<h2>최근 거래</h2>
+<div class="card" style="padding:6px 8px"><table class="trades"><thead><tr><th style="text-align:left">시간 (KST)</th><th style="text-align:left">거래</th><th style="text-align:left">보낸 것 → 받은 것</th><th style="text-align:left">가격</th><th style="text-align:left">이유</th><th style="text-align:left">거래 링크</th></tr></thead><tbody id="trades"><tr><td colspan="6" class="skel">불러오는 중…</td></tr></tbody></table></div>
+<footer>잔고는 Base 체인(mainnet.base.org)에서, 가격은 CoinGecko에서 실시간으로 가져와요 · 60초마다 자동 새로고침</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const usd=(v,d=2)=>v==null?'–':'$'+v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pct=v=>v==null?'–':(v>=0?'+':'')+v.toFixed(2)+'%';
+const cls=v=>v==null?'':v>=0?'up':'down';
+const amt=(v,k)=>v==null?'–':v.toLocaleString('en-US',{maximumFractionDigits:k==='USDC'?2:k==='cbBTC'?8:6});
+const kst=iso=>new Date(iso).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'long',day:'numeric',weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'})+' KST';
+const GRP={core:'주요',aggressive:'공격용',gas:'수수료'};
+
+const RPC='https://mainnet.base.org',WALLET='0x69afAa396eae434867b2Ad3196120a586352319D',BASELINE=109.46;
+const TOKENS={USDC:['0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',6],WETH:['0x4200000000000000000000000000000000000006',18],cbBTC:['0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf',8]};
+const COST={WETH:30,cbBTC:22};
+const tmo=()=>AbortSignal.timeout?AbortSignal.timeout(10000):undefined;
+async function balances(){
+  const data='0x70a08231'+WALLET.slice(2).toLowerCase().padStart(64,'0');
+  const keys=Object.keys(TOKENS);
+  const body=[{jsonrpc:'2.0',id:0,method:'eth_getBalance',params:[WALLET,'latest']},...keys.map((k,i)=>({jsonrpc:'2.0',id:i+1,method:'eth_call',params:[{to:TOKENS[k][0],data},'latest']}))];
+  const r=await fetch(RPC,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body),signal:tmo()});
+  const j=await r.json();const by={};(Array.isArray(j)?j:[j]).forEach(x=>{if(x.error)throw new Error(x.error.message);by[x.id]=x.result;});
+  const f=(h,d)=>Number(BigInt(h))/10**d;
+  const o={ETH:f(by[0],18)};keys.forEach((k,i)=>o[k]=f(by[i+1],TOKENS[k][1]));return o;
+}
+let priceCache=JSON.parse(localStorage.getItem('px')||'null');
+async function prices(){
+  const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum,bitcoin,usd-coin&vs_currencies=usd&include_24hr_change=true',{signal:tmo()});
+  if(!r.ok)throw new Error('CoinGecko HTTP '+r.status);
+  const j=await r.json();if(!j.ethereum||!j.bitcoin)throw new Error('CoinGecko 응답 형식 오류');
+  const v={ETH:j.ethereum.usd,BTC:j.bitcoin.usd,USDC:j['usd-coin']?.usd??1,ETH24:j.ethereum.usd_24h_change,BTC24:j.bitcoin.usd_24h_change};
+  priceCache=v;try{localStorage.setItem('px',JSON.stringify(v))}catch(e){}return v;
+}
+async function trades(){
+  const r=await fetch('trades.json?'+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
+  return (await r.json()).map(x=>({...x,txShort:x.tx?x.tx.slice(0,10)+'…':null,tx:x.tx?'https://basescan.org/tx/'+x.tx:null}));
+}
+async function getStatus(){
+  const errors=[];
+  const [b,p,t]=await Promise.all([
+    balances().catch(e=>(errors.push('온체인 잔고 조회 실패: '+e.message),null)),
+    prices().catch(e=>(errors.push('가격 조회 실패: '+e.message),priceCache?(errors.push('이전 가격 사용 중'),priceCache):null)),
+    trades().catch(e=>(errors.push('거래 기록 읽기 실패: '+e.message),[]))]);
+  let assets=null,total=null;
+  if(b){const pr=k=>!p?null:k==='cbBTC'?p.BTC:k==='USDC'?p.USDC:p.ETH;
+    const mk=(key,label,group)=>{const price=pr(key),value=price!=null?b[key]*price:null,cost=COST[key];return{key,label,group,amount:b[key],price,value,cost:cost??null,ret:value!=null&&cost?(value/cost-1)*100:null};};
+    assets=[mk('WETH','ETH (WETH)','core'),mk('cbBTC','비트코인 (cbBTC)','core'),mk('USDC','USDC','aggressive'),mk('ETH','수수료용 ETH','gas')];
+    if(p)total=assets.reduce((s,a)=>s+a.value,0);}
+  return{wallet:WALLET,baseline:BASELINE,total,pnl:total!=null?total-BASELINE:null,pnlPct:total!=null?(total/BASELINE-1)*100:null,assets,prices:p,trades:t,errors,updated:new Date().toISOString()};
+}
+async function load(){
+  try{
+    const s=await getStatus();
+    const errs=s.errors||[];$('err').style.display=errs.length?'block':'none';$('err').innerHTML=errs.map(e=>'⚠️ '+esc(e)).join('<br>');
+    $('dot').style.background=errs.length?'#f59e0b':'';
+    if(s.wallet){$('addr').textContent=s.wallet;$('addr').href='https://basescan.org/address/'+s.wallet;}
+    $('upd').textContent='마지막 업데이트 '+kst(s.updated||new Date().toISOString());
+    $('total').textContent=usd(s.total);
+    $('pnl').innerHTML=s.pnl==null?'입금액 $109.46 대비 –':`입금액 ${usd(s.baseline)} 대비 <b class="${cls(s.pnl)}">${s.pnl>=0?'+':'−'}${usd(Math.abs(s.pnl))} (${pct(s.pnlPct)})</b>`;
+    const p=s.prices;
+    $('px').innerHTML=p?`<div style="display:flex;justify-content:space-between;font-size:15px;margin:4px 0 10px"><span>ETH</span><span><b>${usd(p.ETH)}</b> <span class="${cls(p.ETH24)}" style="font-size:12px">${pct(p.ETH24)}</span></span></div><div style="display:flex;justify-content:space-between;font-size:15px"><span>BTC</span><span><b>${usd(p.BTC,0)}</b> <span class="${cls(p.BTC24)}" style="font-size:12px">${pct(p.BTC24)}</span></span></div><div class="sub" style="font-size:12px">24시간 변동률</div>`:'가격 정보 없음';
+    if(s.assets){
+      $('assets').innerHTML=s.assets.map(a=>`<tr><td><b>${esc(a.label)}</b><span class="tag t-${a.group}">${GRP[a.group]}</span></td><td class="mono">${amt(a.amount,a.key)}</td><td>${usd(a.price,a.key==='USDC'?4:2)}</td><td>${a.cost!=null?usd(a.cost):'<span class="muted">–</span>'}</td><td><b>${usd(a.value)}</b></td><td class="${cls(a.ret)}">${a.ret!=null?pct(a.ret):'<span class="muted">–</span>'}</td></tr>`).join('');
+      if(s.total){const sum=g=>s.assets.filter(a=>a.group===g).reduce((x,a)=>x+(a.value||0),0);
+        const c=sum('core'),ag=sum('aggressive'),g=sum('gas'),t=c+ag+g;
+        $('bCore').style.width=c/t*100+'%';$('bAgg').style.width=ag/t*100+'%';$('bGas').style.width=g/t*100+'%';
+        $('lCore').textContent=usd(c)+' ('+(c/(c+ag)*100).toFixed(0)+'%)';$('lAgg').textContent=usd(ag)+' ('+(ag/(c+ag)*100).toFixed(0)+'%)';
+        $('lGas').textContent='목표 50 : 50 · 수수료용 ETH '+usd(g)+' 별도';}
+    } else $('assets').innerHTML='<tr><td colspan="6" class="muted">잔고를 불러오지 못했어요</td></tr>';
+    const t=s.trades||[];
+    $('trades').innerHTML=t.length?t.map(x=>`<tr><td class="mono muted">${esc(x.time)}</td><td><b>${esc(x.pair)}</b></td><td>${esc(x.in)}${x.out&&x.out!=='–'?' → '+esc(x.out):''}</td><td class="muted">${esc(x.price)}</td><td class="muted">${esc(x.reason)}</td><td>${x.tx?`<a class="mono" href="${esc(x.tx)}" target="_blank" rel="noopener">${esc(x.txShort)} ↗</a>`:'–'}</td></tr>`).join(''):'<tr><td colspan="6" class="muted">아직 거래가 없어요</td></tr>';
+  }catch(e){$('err').style.display='block';$('err').textContent='⚠️ 데이터를 불러오지 못했어요: '+e.message;$('dot').style.background='var(--down)';}
+}
+load();setInterval(load,60000);
+</script>
+</body></html>

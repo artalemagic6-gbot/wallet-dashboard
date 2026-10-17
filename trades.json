@@ -1,0 +1,29 @@
+[
+  {
+    "time": "2026-10-17 10:25",
+    "pair": "USDC→cbBTC",
+    "in": "22 USDC",
+    "out": "0.00026999 cbBTC",
+    "price": "~$81,484/BTC",
+    "tx": "0xcd1d0ef2aab8e793ce6df67e13d4e7b7b45038640c681356ce693d498511473b",
+    "reason": "주요 코인 몫: 장기 비트코인 분산 투자"
+  },
+  {
+    "time": "2026-10-17 10:25",
+    "pair": "USDC→WETH",
+    "in": "30 USDC",
+    "out": "0.0123984 WETH",
+    "price": "~$2,419.67/ETH",
+    "tx": "0x4430c6a82cd45d37ee52d0a585f387b012a67b6cff1307bb7bff7a57271d18ca",
+    "reason": "주요 코인 몫: 장기 보유용 ETH"
+  },
+  {
+    "time": "2026-10-17 10:25",
+    "pair": "USDC approve",
+    "in": "52 USDC allowance to SwapRouter02",
+    "out": "–",
+    "price": "–",
+    "tx": "0xbf4bdd711869f1ea3814073260d32f366fbb905f24d410aedc743b3c8bb7d89f",
+    "reason": "주요 코인 매수를 위한 정확한 금액만 승인"
+  }
+]
