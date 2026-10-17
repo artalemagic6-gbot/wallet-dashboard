@@ -1,5 +1,6 @@
 *
 !index.html
+!CNAME
 !trades.json
 !gen-trades.js
 !publish.sh
