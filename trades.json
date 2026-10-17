@@ -1,5 +1,14 @@
 [
   {
+    "time": "2026-10-17 11:17",
+    "pair": "지출: 도메인",
+    "in": "1.63 USDC → Porkbun (Coinbase Payments x402, 주문 ORDER-RM255P)",
+    "out": "–",
+    "price": "–",
+    "tx": "0x2a3a5036b680cf8dde9729594abca35c23f696e1f2b04b3fdb34713d5e1345cb",
+    "reason": "도메인 peterfolio.top 결제"
+  },
+  {
     "time": "2026-10-17 10:25",
     "pair": "USDC→cbBTC",
     "in": "22 USDC",

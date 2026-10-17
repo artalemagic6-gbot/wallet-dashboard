@@ -1,6 +1,6 @@
 // Generates trades.json (public fields only) from the trade log. Reads ONLY trades.md.
 const fs=require('fs');
-const KO={'Exact-amount approval for core buys':'주요 코인 매수를 위한 정확한 금액만 승인','Core half: long-term ETH':'주요 코인 몫: 장기 보유용 ETH','Core half: long-term BTC diversification':'주요 코인 몫: 장기 비트코인 분산 투자'};
+const KO={'Exact-amount approval for core buys':'주요 코인 매수를 위한 정확한 금액만 승인','Core half: long-term ETH':'주요 코인 몫: 장기 보유용 ETH','Core half: long-term BTC diversification':'주요 코인 몫: 장기 비트코인 분산 투자','Non-trade expense: domain peterfolio.top (1 yr)':'도메인 peterfolio.top 결제'};
 const rows=[];
 for(const line of fs.readFileSync('/workspace/wallet/trades.md','utf8').split('\n')){
   if(!/^\|\s*\d{4}-\d{2}-\d{2}/.test(line))continue;
