@@ -1,5 +1,23 @@
 [
   {
+    "time": "2026-10-21 06:02",
+    "pair": "USDC→WETH",
+    "in": "15 USDC",
+    "out": "0.00612850 WETH",
+    "price": "~$2,448/ETH",
+    "tx": "0x9b8fb0ae54dd3daf75841ff81ba33534a53e0c1f3853ae2482bfdb3c5f8a5e0d",
+    "reason": "저녁 돌파(2380→2460)가 밤새 2420을 지키며 아시아장에서 2447까지 다시 올라와 강도 확인으로 판단. 남은 30 USDC 중 절반만 투입하고 15 USDC는 추가 상승·하락 여지용으로 남김"
+  },
+  {
+    "time": "2026-10-21 06:02",
+    "pair": "USDC approve",
+    "in": "15 USDC allowance to SwapRouter02",
+    "out": "–",
+    "price": "–",
+    "tx": "0x75574b0bed77793912fab84a618c2f63633b6d7081326a0088778ab77b4310c5",
+    "reason": "아시아장 강도 확인 추가 매수를 위한 정확한 금액만 승인"
+  },
+  {
     "time": "2026-10-20 15:31",
     "pair": "USDC→WETH",
     "in": "20 USDC",
