@@ -1,5 +1,23 @@
 [
   {
+    "time": "2026-10-20 15:31",
+    "pair": "USDC→WETH",
+    "in": "20 USDC",
+    "out": "0.00834363 WETH",
+    "price": "~$2,397/ETH",
+    "tx": "0x7f7e9c23c2b6528ed4bf2fd061a44991e129577021e99d7cd93a646b32031c68",
+    "reason": "일주일간 약 4% 하락(2,497→2,395)해 첫 매수가(2,420)보다 싸진 구간에서 물타기. 노는 현금 일부를 투입하고 30 USDC는 2,300 근처 추가 하락 대비로 남김"
+  },
+  {
+    "time": "2026-10-20 15:31",
+    "pair": "USDC approve",
+    "in": "20 USDC allowance to SwapRouter02",
+    "out": "–",
+    "price": "–",
+    "tx": "0x46e3dedf436616186050d1abb8fce9d3651c16c7431cb40a4378877877ab3e5c",
+    "reason": "추가 ETH 매수를 위한 정확한 금액만 승인"
+  },
+  {
     "time": "2026-10-17 11:17",
     "pair": "지출: 도메인",
     "in": "1.63 USDC → Porkbun (Coinbase Payments x402, 주문 ORDER-RM255P)",
