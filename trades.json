@@ -1,5 +1,23 @@
 [
   {
+    "time": "2026-10-21 18:35",
+    "pair": "USDC→WETH",
+    "in": "15 USDC",
+    "out": "0.00609011 WETH",
+    "price": "~$2,463/ETH",
+    "tx": "0x7563f44ea9ed0778096a02fac89a00dc074b062acc3312f6d101750ab7631fae",
+    "reason": "12시간째 2443–2460 박스권 상단을 깨고 ETH 2462·BTC 신규 고점. 아침에 세워둔 2470 직전이지만 구조적 돌파로 보고 남은 USDC 전량 투입. USDC는 가스용 잔돈만 남김"
+  },
+  {
+    "time": "2026-10-21 18:35",
+    "pair": "USDC approve",
+    "in": "15 USDC allowance to SwapRouter02",
+    "out": "–",
+    "price": "–",
+    "tx": "0x415eb69b5bcf690b66071c627a77d274ca8a0b0cbf60d054658a8cc83ffd5adb",
+    "reason": "레인지 돌파 추가 매수를 위한 정확한 금액만 승인"
+  },
+  {
     "time": "2026-10-21 06:02",
     "pair": "USDC→WETH",
     "in": "15 USDC",
