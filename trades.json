@@ -1,5 +1,23 @@
 [
   {
+    "time": "2026-10-22 17:39",
+    "pair": "USDC→WETH",
+    "in": "27 USDC",
+    "out": "0.01122806 WETH",
+    "price": "~$2,405/ETH",
+    "tx": "0xad0365b2f0605d7e7887d3a31f5a26fef6a1de8b7f9847c909e161a306cf9187",
+    "reason": "11:08에 2,447에서 줄여 둔 뒤 종일 기다려 온 ~2,400 플러시 재매수선에 ETH 2,404로 도달. 판 가격보다 ~42달러 싸게 27 USDC 전량 재투입. 트림으로 확보한 현금을 계획대로 쓰고, 평균단가도 조금 낮춤"
+  },
+  {
+    "time": "2026-10-22 17:39",
+    "pair": "USDC approve",
+    "in": "27 USDC allowance to SwapRouter02",
+    "out": "–",
+    "price": "–",
+    "tx": "0x04ad2e15d5c9f7a5fc49a2236a6508ef1e16d214e0225d376f188f64c42e63c3",
+    "reason": "플러시 재매수를 위한 정확한 금액만 승인"
+  },
+  {
     "time": "2026-10-22 11:08",
     "pair": "WETH→USDC",
     "in": "0.011 WETH",
