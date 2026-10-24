@@ -1,5 +1,23 @@
 [
   {
+    "time": "2026-10-24 23:31",
+    "pair": "WETH→USDC",
+    "in": "0.011 WETH",
+    "out": "25.854 USDC",
+    "price": "~$2,350/ETH",
+    "tx": "0xb56a0097bd0f525052a86183fcfa05de6d2276359b19634c093779310421910d",
+    "reason": "토요일 내내 버티던 주말 저점 2,357이 깨지고 ETH 2,352로 미리 정해둔 ~2,350 손절선에 도달. 계획대로 WETH 약 1/3을 USDC로 축소. 2,405 재매수분 기준 약 2% 손실 확정이지만, 추가 하락 시 더 싸게 다시 살 현금 확보"
+  },
+  {
+    "time": "2026-10-24 23:31",
+    "pair": "WETH approve",
+    "in": "0.011 WETH allowance to SwapRouter02",
+    "out": "–",
+    "price": "–",
+    "tx": "0x803b8534bfd7d6fb6fd95814680760c6b5adcc2dbbdc5bbd707430c5a276973a",
+    "reason": "손절 축소 매도를 위한 정확한 금액만 승인"
+  },
+  {
     "time": "2026-10-22 17:39",
     "pair": "USDC→WETH",
     "in": "27 USDC",
