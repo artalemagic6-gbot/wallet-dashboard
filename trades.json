@@ -1,5 +1,23 @@
 [
   {
+    "time": "2026-10-29 11:00",
+    "pair": "USDC→WETH",
+    "in": "12.9 USDC",
+    "out": "0.00558877 WETH",
+    "price": "~$2,308/ETH",
+    "tx": "0x31bef392232fd73803ae8da29b4b7a41544034831a59e83fc9b04ef6a0bed143",
+    "reason": "10:09 트림(2,344) 후 하락이 이어져 ETH 2,306, BTC도 80k 아래(79.8k)로 밀리며 미리 정해둔 ~2,300 절반 재매수 구간에 도달. 판 가격보다 ~36달러 싸게 현금 절반(12.9 USDC)만 다시 투입하고, 나머지 ~12.9 USDC는 2,250 근처 추가 하락 또는 2,385 회복 시용으로 남김"
+  },
+  {
+    "time": "2026-10-29 11:00",
+    "pair": "USDC approve",
+    "in": "12.9 USDC allowance to SwapRouter02",
+    "out": "–",
+    "price": "–",
+    "tx": "0xa24bc4bea080e6ca2127ad448ff61dd0fbeaa49c68095d1cd622aeb99f44fb2a",
+    "reason": "2,300 부근 절반 재매수를 위한 정확한 금액만 승인"
+  },
+  {
     "time": "2026-10-29 10:09",
     "pair": "WETH→USDC",
     "in": "0.011 WETH",
