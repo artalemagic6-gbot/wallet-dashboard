@@ -1,5 +1,23 @@
 [
   {
+    "time": "2026-11-06 00:31",
+    "pair": "cbBTC→USDC",
+    "in": "0.000039 cbBTC",
+    "out": "~2.982 USDC",
+    "price": "~$76,473/BTC",
+    "tx": "0xeb32f30cb6c76a836d436bc38892d00746701da7bfe3105fa8b74a55b9c47fb6",
+    "reason": "00:09에 BTC가 77.3k로 78k 아래 첫 틱이라 '다음 점검에도 아래면 1/3 축소'로 정해뒀는데, 이번 점검 76,412로 선 아래 ~1,600달러 유지. 규칙대로 cbBTC 약 1/3을 USDC로 축소. ETH는 2,289로 2,300 재검토선 아래 마감이라 남은 현금(~18.6 USDC, BTC 매도분 포함)은 하락 중 추가 투입하지 않고 2,200 부근 절반·2,400 회복 시 전량으로 재배치. WETH 보유 유지"
+  },
+  {
+    "time": "2026-11-06 00:31",
+    "pair": "cbBTC approve",
+    "in": "0.000039 cbBTC allowance to SwapRouter02",
+    "out": "–",
+    "price": "–",
+    "tx": "0x53330adf1b83908291684e1b5ca57156835aba2d0b639a3505b14d40c37fb094",
+    "reason": "cbBTC 2차 확인 축소를 위한 정확한 금액만 승인"
+  },
+  {
     "time": "2026-11-06 00:09",
     "pair": "USDC→WETH",
     "in": "15.5 USDC",
