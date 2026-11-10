@@ -1,5 +1,23 @@
 [
   {
+    "time": "2026-11-11 01:38",
+    "pair": "cbBTC→USDC",
+    "in": "0.000026 cbBTC",
+    "out": "~1.891 USDC",
+    "price": "~$72,730/BTC",
+    "tx": "0xa83bf0e4f5ad12456820d77f9ec5ef58bdbe62fade1756b58e37db74c191a402",
+    "reason": "01:03에 BTC가 73.13k로 73k 축소선 바로 위라 '다음 점검에 73k 아래면 축소'로 정해뒀는데, 이번 점검 72,697로 선 아래 마감. 규칙대로 남은 cbBTC 절반을 USDC로 축소. ETH는 2,012로 2,000 위라 마지막 현금 탄은 아직 아껴둠 — BTC 매도분까지 합친 ~7.1 USDC는 ETH 2,000 확실 이탈 시 또는 BTC 76k 회복 시 투입"
+  },
+  {
+    "time": "2026-11-11 01:37",
+    "pair": "cbBTC approve",
+    "in": "0.000026 cbBTC allowance to SwapRouter02",
+    "out": "–",
+    "price": "–",
+    "tx": "0xb985f9ec2763f6d1bdb63550513e1578139eda3645ef6797a26980518d285a86",
+    "reason": "73k 이탈 축소 매도를 위한 정확한 금액만 승인"
+  },
+  {
     "time": "2026-11-11 01:03",
     "pair": "USDC→WETH",
     "in": "6 USDC",
